@@ -1,0 +1,42 @@
+import java.io.IOException;
+import java.util.Scanner;
+
+public class Calculator {
+    public static void main(String[] args) throws IOException {
+        System.out.println("Введи выражение, используя пробелы и числа от 1 до 10 (например: 2 + 3)");
+        System.out.println("Для завершения введи break");
+        Scanner console = new Scanner(System.in);
+        do {
+            String input = console.nextLine();
+            if (input.equals("break")) break;
+            System.out.println(calc(input));
+        } while (true);
+    }
+    public static String calc(String input) throws IOException{
+        String[] INPUT = input.split(" ");
+        if (INPUT.length != 3){
+            throw new IOException("Ошибка. Количество элементов должно равняться трём: два операнда и один оператор.");
+        }
+        String op = INPUT[1];
+        if (!(op.equals("+") || op.equals("-") || op.equals("*") || op.equals("/"))){
+            throw new IOException("Ошибка. К вводу доступны операторы (+, -, /, *)");
+        }
+        int var1 = Integer.parseInt(INPUT[0]);
+        int var2 = Integer.parseInt(INPUT[2]);
+        if (var1<1 || var1>10 || var2<1 || var2>10){
+            throw new IOException("Ошибка. К вводу доступны числа от 1 до 10");
+        }
+        int result;
+
+        if (op.equals("+")) {
+            result = var1 + var2;
+        } else if (op.equals("-")){
+            result = var1 - var2;
+        } else if (op.equals("*")){
+            result = var1 * var2;
+        } else {
+            result = var1 / var2;
+        }
+        return String.valueOf(result);
+    }
+}
